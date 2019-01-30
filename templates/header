@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+#===============================================================================
+#
+#         FILE:  <name>
+#
+#        USAGE:  <name> [-l] [-oD XY]
+#
+#  DESCRIPTION:  <desc>
+#
+#      OPTIONS:  see function 'usage' below
+# REQUIREMENTS:  ---
+#         BUGS:  ---
+#        NOTES:  ---
+#       AUTHOR:  <username>
+#      CREATED:  <date>
+#     REVISION:  <date>
+#
+#===============================================================================
