@@ -1,0 +1,4 @@
+#!/bin/sh
+
+in=$(cat)
+echo "$in"
