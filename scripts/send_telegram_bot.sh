@@ -50,7 +50,7 @@ get_updates() {
 }
 
 #== FUNCTION ===================================================================
-# DESCRIPTION:  attach an document
+# DESCRIPTION:  send messages
 #      RETURN:  none
 send_message() {
   curl -s \
