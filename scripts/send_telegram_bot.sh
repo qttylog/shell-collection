@@ -14,8 +14,9 @@
 
 API_TOKEN='' # -a option
 CHAT_ID='' # -c option
-PARSE_MODE='Markdown' # -p option Markdown or HTML
+PARSE_MODE='HTML' # -m option for Markdown
 DOCUMENT='' # -d option
+PHOTO='' # -p option
 SILENT='false' # -s option
 
 # Do not change!
@@ -34,7 +35,8 @@ usage() {
   echo "  -c chatid    -- defines the chatid"
   echo "  -d document  -- attaches an document"
   echo "  -h           -- shows this page"
-  echo "  -p pasemode  -- either html or markdown"
+  echo "  -m           -- switch to markdown Mode"
+  echo "  -p photo     -- either html or markdown"
   echo "  -s           -- silent"
   echo "  -u           -- makes an getUpdates request only"
   echo ""
@@ -77,6 +79,20 @@ send_document() {
 }
 
 #== FUNCTION ===================================================================
+# DESCRIPTION:  attach an photo
+#      RETURN:  none
+send_photo() {
+  curl -s \
+     --retry 20 \
+     -X POST "${T_API_URL}${API_TOKEN}/sendPhoto" \
+     -F chat_id="${CHAT_ID}" \
+     -F photo=@"${PHOTO}" \
+     -F parse_mode="${PARSE_MODE}" \
+     -F caption="${msg}"
+  echo ""
+}
+
+#== FUNCTION ===================================================================
 # DESCRIPTION:  takes a command as an argument and executes it
 #      RETURN:  none
 
@@ -94,7 +110,7 @@ run_command() {
 }
 
 #== GETOPTS ====================================================================
-while getopts "h?usa:c:d:p:" opt; do
+while getopts "h?musa:c:d:p:" opt; do
   case "$opt" in
   h|\?)
     usage
@@ -109,8 +125,11 @@ while getopts "h?usa:c:d:p:" opt; do
   d)
     DOCUMENT=$OPTARG
     ;;
+  m)
+    PARSE_MODE='Markdown'
+    ;;
   p)
-    PARSE_MODE=$OPTARG
+    PHOTO=$OPTARG
     ;;
   s)
     SILENT='true'
@@ -124,6 +143,11 @@ done
 #== MAIN =======================================================================
 if [ -n "$DOCUMENT" ]; then
   run_command send_document
+  exit $?
+fi
+
+if [ -n "$PHOTO" ]; then
+  run_command send_photo
   exit $?
 fi
 
