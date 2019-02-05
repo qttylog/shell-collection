@@ -23,9 +23,6 @@ SILENT='false'        # -s option
 T_API_URL='https://api.telegram.org/bot'
 OPTIND=1 # reset
 
-#== FUNCTION ===================================================================
-# DESCRIPTION:  shows help
-#      RETURN:  none
 usage() {
   echo ""
   echo "send-telegram-bot [options] < stdin_text"
@@ -42,18 +39,12 @@ usage() {
   echo ""
 }
 
-#== FUNCTION ===================================================================
-# DESCRIPTION:  getUpdates request
-#      RETURN:  none
 get_updates() {
   curl -X GET "${T_API_URL}${API_TOKEN}/getUpdates"
   echo ""
   exit $?
 }
 
-#== FUNCTION ===================================================================
-# DESCRIPTION:  send messages
-#      RETURN:  none
 send_message() {
   curl -s \
      --retry 20 \
@@ -64,9 +55,6 @@ send_message() {
   echo ""
 }
 
-#== FUNCTION ===================================================================
-# DESCRIPTION:  sendDocument request attaches an document
-#      RETURN:  none
 send_document() {
   curl -s \
      --retry 20 \
@@ -78,9 +66,6 @@ send_document() {
   echo ""
 }
 
-#== FUNCTION ===================================================================
-# DESCRIPTION:  sendPhoto request attaches an photo
-#      RETURN:  none
 send_photo() {
   curl -s \
      --retry 20 \
@@ -92,9 +77,6 @@ send_photo() {
   echo ""
 }
 
-#== FUNCTION ===================================================================
-# DESCRIPTION:  takes a command as an argument and executes it
-#      RETURN:  none
 run_command() {
   # read stdin
   msg=$(cat)
@@ -122,16 +104,18 @@ main() {
     u) get_updates ;;
     esac
   done
+
+  if [ -n "$DOCUMENT" ]; then
+    run_command send_document
+    exit $?
+  fi
+
+  if [ -n "$PHOTO" ]; then
+    run_command send_photo
+    exit $?
+  fi
+
+  run_command send_message
 }
 
-if [ -n "$DOCUMENT" ]; then
-  run_command send_document
-  exit $?
-fi
-
-if [ -n "$PHOTO" ]; then
-  run_command send_photo
-  exit $?
-fi
-
-run_command send_message
+main "$@"
