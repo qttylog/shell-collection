@@ -39,7 +39,7 @@ Options:
 }
 
 get_updates() {
-  curl -X GET "${TG_ENDPOINT}/getUpdates"
+  curl -X GET -s "${TG_ENDPOINT}/getUpdates"
   exit $?
 }
 
