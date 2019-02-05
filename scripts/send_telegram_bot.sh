@@ -40,7 +40,6 @@ Options:
 
 get_updates() {
   curl -X GET "${TG_ENDPOINT}/getUpdates"
-  echo ""
   exit $?
 }
 
