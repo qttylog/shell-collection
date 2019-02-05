@@ -108,38 +108,22 @@ run_command() {
   exit $?
 }
 
-#== GETOPTS ====================================================================
-while getopts "h?musa:c:d:p:" opt; do
-  case "$opt" in
-  h|\?)
-    usage
-    exit 0
-    ;;
-  a)
-    API_TOKEN=$OPTARG
-    ;;
-  c)
-    CHAT_ID=$OPTARG
-    ;;
-  d)
-    DOCUMENT=$OPTARG
-    ;;
-  m)
-    PARSE_MODE='Markdown'
-    ;;
-  p)
-    PHOTO=$OPTARG
-    ;;
-  s)
-    SILENT='true'
-    ;;
-  u)
-    get_updates
-    ;;
-  esac
-done
 
-#== MAIN =======================================================================
+main() {
+  while getopts "h?musa:c:d:p:" opt; do
+    case "$opt" in
+    h|\?) usage; exit 0 ;;
+    a) API_TOKEN=$OPTARG ;;
+    c) CHAT_ID=$OPTARG ;;
+    d) DOCUMENT=$OPTARG ;;
+    m) PARSE_MODE='Markdown' ;;
+    p) PHOTO=$OPTARG ;;
+    s) SILENT='true' ;;
+    u) get_updates ;;
+    esac
+  done
+}
+
 if [ -n "$DOCUMENT" ]; then
   run_command send_document
   exit $?
