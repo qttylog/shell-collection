@@ -8,16 +8,16 @@
 # REQUIREMENTS:  curl
 #       AUTHOR:  MulTux <https://github.com/multux>
 #      CREATED:  01.02.2019
-#     REVISION:  03.02.2019
+#     REVISION:  05.02.2019
 #
 #===============================================================================
 
-API_TOKEN='' # -a option
-CHAT_ID='' # -c option
-PARSE_MODE='HTML' # -m option for Markdown
-DOCUMENT='' # -d option
-PHOTO='' # -p option
-SILENT='false' # -s option
+API_TOKEN=''          # -a option
+CHAT_ID=''            # -c option
+PARSE_MODE='HTML'     # -m option for Markdown
+DOCUMENT=''           # -d option
+PHOTO=''              # -p option
+SILENT='false'        # -s option
 
 # Do not change!
 T_API_URL='https://api.telegram.org/bot'
@@ -65,7 +65,7 @@ send_message() {
 }
 
 #== FUNCTION ===================================================================
-# DESCRIPTION:  attach an document
+# DESCRIPTION:  sendDocument request attaches an document
 #      RETURN:  none
 send_document() {
   curl -s \
@@ -79,7 +79,7 @@ send_document() {
 }
 
 #== FUNCTION ===================================================================
-# DESCRIPTION:  attach an photo
+# DESCRIPTION:  sendPhoto request attaches an photo
 #      RETURN:  none
 send_photo() {
   curl -s \
@@ -95,7 +95,6 @@ send_photo() {
 #== FUNCTION ===================================================================
 # DESCRIPTION:  takes a command as an argument and executes it
 #      RETURN:  none
-
 run_command() {
   # read stdin
   msg=$(cat)
