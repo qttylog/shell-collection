@@ -22,10 +22,6 @@ PHOTO=''              # -p option
 SILENT='false'        # -s option
 RETRYS='20'
 
-# Do not change!
-TG_API='https://api.telegram.org/bot'
-TG_ENDPOINT="${TG_API}/bot${API_TOKEN}"
-
 usage() {
   echo "
 send-telegram-bot [options] < stdin_text
@@ -38,7 +34,8 @@ Options:
   -m             -- switch to markdown Mode
   -p <file>      -- either html or markdown
   -s             -- silent
-  -u             -- makes an getUpdates request only"
+  -u             -- makes an getUpdates request only
+"
 }
 
 get_updates() {
@@ -90,6 +87,8 @@ send_photo() {
 }
 
 main() {
+  updates='false'
+
   while getopts "h?musa:c:d:p:" opt; do
     case "$opt" in
     h|\?) usage; exit 0 ;;
@@ -99,11 +98,16 @@ main() {
     m) PARSE_MODE='Markdown' ;;
     p) PHOTO=$OPTARG ;;
     s) SILENT='true' ;;
-    u) get_updates ;;
+    u) updates='true' ;;
     esac
   done
 
-  if [ -n "$DOCUMENT" ]; then
+  TG_API='https://api.telegram.org'
+  TG_ENDPOINT="${TG_API}/bot${API_TOKEN}"
+
+  if [ "$updates" = "true" ]; then
+    get_updates
+  elif [ -n "$DOCUMENT" ]; then
     run_command send_document
   elif [ -n "$PHOTO" ]; then
     run_command send_photo
