@@ -100,11 +100,6 @@ send_photo() {
 main() {
   updates='false'
 
-  if [ ! "$TG_API_TOKEN" ]; then
-    echo "TG_API_TOKEN is not set."
-    exit 1
-  fi
-
   while getopts "h?musa:c:d:p:" opt; do
     case "$opt" in
     h|\?) usage; exit 0 ;;
@@ -117,6 +112,11 @@ main() {
     u) updates='true' ;;
     esac
   done
+
+  if [ ! "$TG_API_TOKEN" ]; then
+    echo "TG_API_TOKEN is not set."
+    exit 1
+  fi
 
   TG_API='https://api.telegram.org'
   TG_ENDPOINT="${TG_API}/bot${TG_API_TOKEN}"
