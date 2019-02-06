@@ -3,14 +3,14 @@
 #
 #        USAGE:  send-telegram-bot.sh < msg.txt
 #
-#  DESCRIPTION:  send text messages, documents and photos to telegram.
-#                If you are interested in reading the output,
-#                I recommend piping it to jq
+#  DESCRIPTION:  send text messages, documents and photos to telegram.                
 #
 # REQUIREMENTS:  curl
+#        NOTES:  If you are interested in reading the output, I recommend 
+#                it to jq
 #       AUTHOR:  MulTux <https://github.com/multux>
 #      CREATED:  01.02.2019
-#     REVISION:  05.02.2019
+#     REVISION:  06.02.2019
 #
 #===============================================================================
 
