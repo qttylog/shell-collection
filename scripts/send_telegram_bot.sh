@@ -14,7 +14,7 @@
 #
 #===============================================================================
 
-API_TOKEN=''          # -a option
+#TG_API_TOKEN=''      # -a option I recommend to set the API Token per EV
 CHAT_ID=''            # -c option
 PARSE_MODE='HTML'     # -m option for Markdown
 DOCUMENT=''           # -d option
@@ -24,7 +24,10 @@ RETRYS='20'
 
 usage() {
   echo "
-send-telegram-bot [options] < stdin_text
+send-telegram-bot [options] < textfile
+
+ENVIRONMENT VARIABLES
+  TG_API_TOKEN from the BotFather (@TelegramBot)
 
 Options:
   -a <apitoken>  -- API Token from the BotFather (@TelegramBot)
@@ -32,9 +35,18 @@ Options:
   -d <file>      -- attaches an document
   -h             -- shows this page
   -m             -- switch to markdown Mode
-  -p <file>      -- either html or markdown
+  -p <file>      -- attaches an photo
   -s             -- silent
   -u             -- makes an getUpdates request only
+
+Examples:
+  TG_API_TOKEN='<apitoken>' send_telegram_bot.sh -u
+  echo \"Hello World\" | send_telegram_bot.sh -c <chatid>
+  send_telegram_bot.sh -a <apitoken> -c <chatid> < textfile
+  send_telegram_bot.sh -c <chatid> #End with STR+D
+
+  send_telegram_bot.sh -c <chatid> -d <file> < caption
+  send_telegram_bot.sh -c <chatid> -p <file> < caption
 "
 }
 
@@ -88,10 +100,15 @@ send_photo() {
 main() {
   updates='false'
 
+  if [ ! "$TG_API_TOKEN" ]; then
+    echo "TG_API_TOKEN is not set."
+    exit 1
+  fi
+
   while getopts "h?musa:c:d:p:" opt; do
     case "$opt" in
     h|\?) usage; exit 0 ;;
-    a) API_TOKEN=$OPTARG ;;
+    a) TG_API_TOKEN=$OPTARG ;;
     c) CHAT_ID=$OPTARG ;;
     d) DOCUMENT=$OPTARG ;;
     m) PARSE_MODE='Markdown' ;;
@@ -102,7 +119,7 @@ main() {
   done
 
   TG_API='https://api.telegram.org'
-  TG_ENDPOINT="${TG_API}/bot${API_TOKEN}"
+  TG_ENDPOINT="${TG_API}/bot${TG_API_TOKEN}"
 
   if [ "$updates" = "true" ]; then
     get_updates
