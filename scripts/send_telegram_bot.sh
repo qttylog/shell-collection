@@ -7,7 +7,7 @@
 #
 # REQUIREMENTS:  curl
 #        NOTES:  If you are interested in reading the output, I recommend 
-#                it to jq
+#                piping it into jq
 #       AUTHOR:  MulTux <https://github.com/multux>
 #      CREATED:  01.02.2019
 #     REVISION:  06.02.2019
