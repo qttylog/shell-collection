@@ -3,10 +3,10 @@
 #
 #        USAGE:  send-telegram-bot.sh < msg.txt
 #
-#  DESCRIPTION:  send text messages, documents and photos to telegram.                
+#  DESCRIPTION:  send text messages, documents and photos to telegram.
 #
 # REQUIREMENTS:  curl
-#        NOTES:  If you are interested in reading the output, I recommend 
+#        NOTES:  If you are interested in reading the output, I recommend
 #                piping it into jq
 #       AUTHOR:  MulTux <https://github.com/multux>
 #      CREATED:  01.02.2019
