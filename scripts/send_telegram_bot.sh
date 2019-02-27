@@ -8,7 +8,7 @@
 # REQUIREMENTS:  curl
 #        NOTES:  If you are interested in reading the output, I recommend
 #                piping it into jq
-#       AUTHOR:  MulTux <https://github.com/multux>
+#       AUTHOR:  qTTY_log/ <https://github.com/qttylog>
 #      CREATED:  01.02.2019
 #     REVISION:  06.02.2019
 #
