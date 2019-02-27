@@ -1,2 +1,3 @@
 # shell-collection
-Not the shell-like one
+
+A collection of different shell scripts. What else?
